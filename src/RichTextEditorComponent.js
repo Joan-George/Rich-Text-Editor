@@ -47,7 +47,9 @@ class RichTextEditorComponent extends React.Component {
 
   componentDidMount() {
     axios.get(BASE_URL+"get").then(response => {
-        const rawData = response.data[6].code;
+        let temp = Math.floor(Math.random() * response.data.length);
+        console.log(response.data)
+        const rawData = response.data[temp].code;
         const blocksFromHTML = htmlToDraft(rawData);
         const content = ContentState.createFromBlockArray(
           blocksFromHTML.contentBlocks,
@@ -56,7 +58,7 @@ class RichTextEditorComponent extends React.Component {
     
         this.setState({ 
             editorState:EditorState.createWithContent(content),
-            id:response.data[6].id
+            id:response.data[temp].id
         })
     })
  
